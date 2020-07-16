@@ -70,5 +70,19 @@ namespace TestApi.Controllers
             _repository.SaveChanges();
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult<CommandReadDto> DeleteCommand(int Id)
+        {
+
+            var command = _repository.GetCommandById(Id);
+            if (command == null)
+            {
+                return NotFound();
+            }
+            _repository.DeleteCommand(command);
+            _repository.SaveChanges();
+            return NoContent();
+        }
     }
 }

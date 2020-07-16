@@ -46,5 +46,15 @@ namespace TestApi.Data
         {
            // throw new NotImplementedException();
         }
+        public void DeleteCommand(Command command)
+        {
+            if (command == null)
+            {
+                throw new ArgumentException(nameof(command));
+            }
+            _context.Commands.Remove(command);
+        }
+
+        
     }
 }
