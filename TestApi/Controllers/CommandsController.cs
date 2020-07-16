@@ -57,7 +57,18 @@ namespace TestApi.Controllers
             return CreatedAtRoute(nameof(GetCommandById), new { Id = commandReadDto.Id }, commandReadDto);
            
         }
-
-        pub
+        [HttpPut("{Id}")]
+        public ActionResult UpdateCommand(int Id, CommandUpdateDto commandUpdateDto)
+        {
+            var commandModel = _repository.GetCommandById(Id);
+            if (commandModel == null)
+            {
+                return NotFound(); 
+            }
+            _mapper.Map(commandUpdateDto, commandModel);
+            _repository.UpdateCommand(commandModel);
+            _repository.SaveChanges();
+            return NoContent();
+        }
     }
 }
